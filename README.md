@@ -1,4 +1,4 @@
-#Watch shop demo
+# Watch shop demo
 
 This is simple Spring Boot application, featuring:
 
