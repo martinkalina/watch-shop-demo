@@ -5,5 +5,5 @@ data class Watch(
         var title: String,
         var price: Int,
         var description: String,
-        var fountain: ByteArray
+        var fountain: Image
 )

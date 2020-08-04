@@ -1,5 +1,6 @@
 package cz.mkalina.watchshopdemo.rest
 
+import cz.mkalina.watchshopdemo.model.Image
 import cz.mkalina.watchshopdemo.model.Watch
 import cz.mkalina.watchshopdemo.service.WatchService
 import org.springframework.http.HttpStatus
@@ -12,15 +13,15 @@ import javax.xml.bind.annotation.XmlRootElement
 @RestController
 @RequestMapping("/watch")
 class WatchController(
-    val watchService: WatchService
+        val watchService: WatchService
 ) {
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE])
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody request: WatchCreateRequest) {
 
-        val watch  = try{
-            val fountain = Base64.getDecoder().decode(request.fountain)
+        val watch = try {
+            val fountain = Image(Base64.getDecoder().decode(request.fountain))
             val price = Integer.parseInt(request.price)
             Watch(
                     title = request.title,
@@ -28,7 +29,7 @@ class WatchController(
                     description = request.description,
                     fountain = fountain
             )
-        } catch (e: RuntimeException){
+        } catch (e: RuntimeException) {
             throw ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY)
         }
 
